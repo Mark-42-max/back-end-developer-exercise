@@ -5,9 +5,9 @@
     <div class="content">
         <h2>{{$post->title}}</h2>
         <p>{{$post->excerpt}}</p>
-        <p>Published {{$post->created_at->diffForHumans()}}</p>
+        <p>Published {{$post->created_at->diffForHumans()}} by <a href="/authors/{{$post->author->username}}">{{$post->author->name}}</a> from <a href="?category={{$post->category->slug}}">{{$post->category->name}}</a></p>
         <ul class="actions stacked">
-            <li><a href="#" class="button">Learn More</a></li>
+            <li><a href="/posts/{{$post->slug}}" class="button">Learn More</a></li>
         </ul>
     </div>
     <div class="image">
