@@ -8,18 +8,54 @@
                     <label for="name">Name</label>
                     <input type="text" name="name" id="name" value="" />
                 </div>
-                <div class="field half">
-                    <label for="email">Email</label>
-                    <input type="email" name="email" id="email" value="" />
-                </div>
+
+                @auth
+                    <div class="field half">
+                        <label for="email">Email</label>
+                        <input readonly type="email" name="email" id="email" value="{{auth()->user()->email}}" />
+                    </div>
+                @else
+                    <div class="field half">
+                        <label for="email">Email</label>
+                        <input readonly type="email" name="email" id="email" value="Please login to continue..." />
+                    </div>
+                @endauth
                 <div class="field">
                     <label for="message">Message</label>
                     <textarea name="message" id="message" rows="6"></textarea>
                 </div>
             </div>
             <ul class="actions special">
-                <li><input type="submit" name="submit" id="submit" value="Send Message" /></li>
+                @auth
+                    <li><input type="submit" name="submit" id="submit" value="Send Message" /></li>
+                @else
+                    <li><a href="/login" class="button big wide smooth-scroll-middle">Login to send message</a></li>
+                @endauth
             </ul>
+        </form>
+
+    </div>
+
+    <div id="newsletter" class="inner medium">
+        <h2>Subscribe to our newsletter</h2>
+        <form method="post" action="/newsletter">
+            {{csrf_field()}}
+            <div class="fields">
+                <div class="field">
+                    <label for="email">Email</label>
+                    <input type="email" name="email" id="email" value="{{old('email')}}" />
+                </div>
+            </div>
+
+            <ul class="actions special">
+                <li><input type="submit" name="submit" id="submit" value="Subscribe" /></li>
+            </ul>
+
+            @error('email')
+                <script>
+                    swal("Error", "{{$message}}", "error");
+                </script>
+            @enderror
         </form>
 
     </div>

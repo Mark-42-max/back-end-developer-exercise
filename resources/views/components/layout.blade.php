@@ -1,3 +1,5 @@
+@include('sweetalert::alert')
+
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -8,6 +10,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://unpkg.com/sweetalert2@7.18.0/dist/sweetalert2.all.js"></script>
     <noscript><link rel="stylesheet" href="/assets/css/noscript.css" /></noscript>
     <style>
         html {
@@ -17,6 +20,7 @@
             /* 2 */
             -webkit-text-size-adjust: 100%;
             /* 2 */
+            scroll-behavior: smooth;
         }
 
         /* Sections
@@ -993,7 +997,11 @@
 
 <!-- Wrapper -->
 {{$slot}}
-
+@if(session()->has('success'))
+    <script>
+        swal("{{ session('success') }}");
+    </script>
+@endif
 <!-- Scripts -->
 <script src="/assets/js/jquery.min.js"></script>
 <script src="/assets/js/jquery.scrollex.min.js"></script>

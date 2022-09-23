@@ -12,11 +12,21 @@
             <p class="major">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur dolorem explicabo ipsam laudantium nemo nulla voluptas voluptate. Consectetur consequatur consequuntur doloremque eveniet fugit modi saepe similique. A aliquam aut beatae cumque et ipsam iure labore laborum, maxime minima modi nesciunt quos, sapiente sit totam, veritatis vitae. Doloribus fugiat nesciunt repudiandae?</p>
             <ul class="actions spotlight style1" style="width: 110%">
                 <li><a href="#first" class="button big wide smooth-scroll-middle">Get Started</a></li>
-                <li><a href="#" class="button big wide smooth-scroll-middle">Sign In</a></li>
-                <li><a href="#" class="button big wide smooth-scroll-middle">Sign Up</a></li>
+                @auth
+                    <li>
+                        <form method="POST" action="/logout">
+                            {{csrf_field()}}
+                            <button type="submit" class="button big wide smooth-scroll-middle">Logout</button>
+                        </form>
+                    </li>
+                    <li><a href="#newsletter" class="button big wide smooth-scroll-middle">Subscribe</a></li>
+                @else
+                    <li><a href="/login" class="button big wide smooth-scroll-middle">Sign In</a></li>
+                    <li><a href="/register" class="button big wide smooth-scroll-middle">Sign Up</a></li>
+                @endauth
             </ul>
 
-            @if(!Request::is('/') || Request::exists('category') || Request::exists('author') || Request::exists('search'))
+            @if(!Request::is('/') || Request::exists('category') || Request::exists('authors') || Request::exists('search'))
                 <a href="/" class="button big wide smooth-scroll-middle">Back to Home</a>
             @endif
         </div>

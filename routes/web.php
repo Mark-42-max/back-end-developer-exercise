@@ -1,10 +1,16 @@
 <?php
 
+use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\SessionController;
 use App\Models\Category;
 use App\Models\User;
+use App\Services\Newsletter;
 use Illuminate\Support\Facades\Route;
 use \App\Models\Post;
+use Illuminate\Validation\ValidationException;
+use MailchimpMarketing\ApiClient;
 use \Spatie\YamlFrontMatter\YamlFrontMatter;
 
 /*
@@ -29,6 +35,27 @@ Route::get('/authors/{author:username}', function (User $author) {
         'categories' => Category::all(),
     ]);
 });
+
+Route::get('register', [RegisterController::class, 'create'])->middleware('guest');
+Route::post('register', [RegisterController::class, 'store'])->middleware('guest');
+
+Route::get('register/google', [RegisterController::class, 'redirectToGoogle'])->middleware('guest');
+Route::get('register/facebook', [RegisterController::class, 'redirectToFacebook'])->middleware('guest');
+
+Route::post('logout', [SessionController::class, 'destroy'])->middleware('auth');
+
+Route::post('session', [SessionController::class, 'store'])->middleware('guest');
+Route::get('login', [SessionController::class, 'create'])->middleware('guest');
+
+Route::post('newsletter', NewsletterController::class);
+
+//Google Login
+Route::get('login/google', [SessionController::class, 'redirectToGoogle'])->name('login.google')->middleware('guest');
+Route::get('login/google/callback', [SessionController::class, 'handleGoogleCallback'])->middleware('guest');
+
+//Facebook Login
+Route::get('login/facebook', [SessionController::class, 'redirectToFacebook'])->name('login.facebook')->middleware('guest');
+Route::get('login/facebook/callback', [SessionController::class, 'handleFacebookCallback'])->middleware('guest');
 
 //->where('post', '[A-z_\-]+');
 
