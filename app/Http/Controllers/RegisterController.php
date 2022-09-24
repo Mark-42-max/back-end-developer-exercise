@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Laravel\Socialite\Facades\Socialite;
 
 class RegisterController extends Controller
 {
@@ -28,11 +29,11 @@ class RegisterController extends Controller
     }
 
     public function redirectToGoogle(){
-
+        return Socialite::driver('google')->redirect();
     }
 
     public function redirectToFacebook(){
-
+        return Socialite::driver('facebook')->redirect();
     }
 
 }
