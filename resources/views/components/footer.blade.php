@@ -2,7 +2,8 @@
 <section class="wrapper style1 align-center">
     <div class="inner medium">
         <h2>Get in touch</h2>
-        <form method="post" action="#">
+        <form method="post" action="/message">
+            {{csrf_field()}}
             <div class="fields">
                 <div class="field half">
                     <label for="name">Name</label>

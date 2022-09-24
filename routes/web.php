@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RegisterController;
@@ -56,6 +57,9 @@ Route::get('login/google/callback', [SessionController::class, 'handleGoogleCall
 //Facebook Login
 Route::get('login/facebook', [SessionController::class, 'redirectToFacebook'])->name('login.facebook')->middleware('guest');
 Route::get('login/facebook/callback', [SessionController::class, 'handleFacebookCallback'])->middleware('guest');
+
+//Message route
+Route::post('message', [MessageController::class, 'create'])->middleware('auth');
 
 //->where('post', '[A-z_\-]+');
 
