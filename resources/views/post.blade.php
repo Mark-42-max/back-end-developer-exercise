@@ -13,7 +13,11 @@
                 <!-- Text -->
                 <section>
                     <div>
-                        <img src="/images/pic01.jpg" alt="pic01" class="style1"/>
+                        @if(empty($post->thumbnail))
+                            <img src="/images/spotlight01.jpg" alt="" class="style1"/>
+                        @else
+                            <img src="{{asset('/storage/'.$post->thumbnail)}}" alt="" class="style1">
+                        @endif
                     </div>
                     <div class="content" style="padding-left: 3rem; overflow-y: scroll; height: 70vw">
 
@@ -27,7 +31,9 @@
         </div>
     </section>
 
-    <x-gallery :relate="$relatedPosts"/>
+    @if(!empty($relatedPosts))
+        <x-gallery :relate="$relatedPosts"/>
+    @endif
 
     <x-footer />
 </x-layout>

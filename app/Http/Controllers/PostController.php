@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
@@ -21,7 +23,7 @@ class PostController extends Controller
         $category_id = (Category::where('name', $post->category->name)->get())[0]->getAttributes()['id'];
         return view('post', [
             'post' => $post,
-            'relatedPosts' => Post::where('category_id', $category_id)->get(),
+            'relatedPosts' => Post::where('category_id', $category_id)->where('id', '!=', $post->id)->get(),
         ]);
     }
 
@@ -43,6 +45,8 @@ class PostController extends Controller
         $attributes['thumbnail'] = $request->file('thumbnail')->store('thumbnails');
 
         $attributes['user_id'] = auth()->user()->id;
+
+        $attributes['slug'] = Str::slug($attributes['title'].now(), '-');
 
         Post::create($attributes);
 

@@ -10,8 +10,8 @@
         </ul>
     </div>
     <div class="image">
-        @if(!$post->thumbnail)
-            <img src="/images/spotlight01.jpg}}" alt=""/>
+        @if(empty($post->thumbnail))
+            <img src="/images/spotlight01.jpg" alt=""/>
         @else
             <img src="{{asset('/storage/'.$post->thumbnail)}}" alt="">
         @endif

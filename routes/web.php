@@ -29,14 +29,6 @@ Route::get('/', [PostController::class, 'index'])->name('home');
 
 Route::get('/posts/{post}', [PostController::class, 'show']);
 
-Route::get('/authors/{author:username}', function (User $author) {
-
-    return view('posts', [
-        'posts' => $author->posts,
-        'categories' => Category::all(),
-    ]);
-});
-
 Route::get('register', [RegisterController::class, 'create'])->middleware('guest');
 Route::post('register', [RegisterController::class, 'store'])->middleware('guest');
 
@@ -64,6 +56,7 @@ Route::post('message', [MessageController::class, 'create'])->middleware('auth')
 //Admin Route
 Route::get('admin/posts/create', [PostController::class, 'create'])->middleware('admin');
 Route::post('admin/posts/make', [PostController::class, 'make'])->middleware('admin');
+
 
 //->where('post', '[A-z_\-]+');
 
