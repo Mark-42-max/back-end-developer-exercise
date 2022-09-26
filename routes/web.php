@@ -31,6 +31,8 @@ Route::get('/posts/{post}', [PostController::class, 'show']);
 
 Route::get('register', [RegisterController::class, 'create'])->middleware('guest');
 Route::post('register', [RegisterController::class, 'store'])->middleware('guest');
+Route::get('register/oauth', [RegisterController::class, 'redirectToSms'])->middleware('guest');
+Route::post('register/oauth/verify', [RegisterController::class, 'checkAndRedirect'])->middleware('guest');
 
 Route::get('register/google', [RegisterController::class, 'redirectToGoogle'])->middleware('guest');
 Route::get('register/facebook', [RegisterController::class, 'redirectToFacebook'])->middleware('guest');
