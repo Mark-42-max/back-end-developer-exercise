@@ -17,10 +17,11 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->foreignId('user_id');
-            $table->foreignId('category_id')->unique();
-            $table->string('slug')->unique();
+            $table->foreignId('category_id');
+            $table->string('slug')->unique()->nullable(); //should not be null
             $table->text('excerpt');
             $table->text('body');
+            $table->string('thumbnail')->nullable(true);
             $table->timestamps();
             $table->timestamp('published_at')->nullable();
         });

@@ -46,7 +46,7 @@ class SessionController extends Controller
 
     public function handleGoogleCallback(){
         $user = Socialite::driver('google')->user();
-        ddd($user->email);
+        return $this->_registerOrSigninUser($user);
     }
 
     public function handleFacebookCallback(){
@@ -63,6 +63,9 @@ class SessionController extends Controller
                 'username' => $user->email,
             ]);
         }
+
         auth()->login($currentuser, true);
+
+        return redirect('/')->with('success', 'Welcome back!');
     }
 }

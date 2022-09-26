@@ -10,6 +10,10 @@
         </ul>
     </div>
     <div class="image">
-        <img src="/images/spotlight01.jpg" alt="">
+        @if(!$post->thumbnail)
+            <img src="/images/spotlight01.jpg}}" alt=""/>
+        @else
+            <img src="{{asset('/storage/'.$post->thumbnail)}}" alt="">
+        @endif
     </div>
 </section>
