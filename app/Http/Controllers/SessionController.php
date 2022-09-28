@@ -19,6 +19,15 @@ class SessionController extends Controller
             'password' => ['required'],
         ]);
 
+        $existingUser = User::where('email', $credentials['email'])->get();
+
+        if(!empty($existingUser && empty($existingUser->password))){
+            throw ValidationException::withMessages([
+                'email' => 'You have registered using social login. Please login using social login.',
+            ]);
+
+        }
+
         if (auth()->attempt($credentials)) {
             session()->regenerate();
 
@@ -56,11 +65,18 @@ class SessionController extends Controller
 
     protected function _registerOrSigninUser($user){
         $currentuser = User::where('email', $user->email)->first();
+
+        if(!empty($currentuser->password)){
+            //signin with google but already registered with general authentication
+            return redirect('/')->with('error', 'You are already registered with general authentication. Please login with your credentials.');
+
+        }
         if (!$currentuser) {
             $currentuser = User::create([
                 'name' => $user->name,
                 'email' => $user->email,
                 'username' => $user->email,
+                'is_authorized' => true,
             ]);
         }
 

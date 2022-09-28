@@ -999,7 +999,11 @@
 {{$slot}}
 @if(session()->has('success'))
     <script>
-        swal("{{ session('success') }}");
+        swal("Success", "{{session('success')}}", "success");
+    </script>
+    @elseif(session()->has('error'))
+    <script>
+        swal("Error", "{{session('error')}}", "error");
     </script>
 @endif
 <!-- Scripts -->
