@@ -15,7 +15,19 @@
                         <span>Yes</span>
                     @endif
                 </li>
-                <li><a href="admin/posts/create" class="button">CREATE POST</a></li>
+                <li>
+                    Admin:
+                    @if($returnData['userData']->admin == 0)
+                        <span class="txt-danger">No</span>
+                    @else
+                        <span>Yes</span>
+                    @endif
+                </li>
+                <li>
+                    @if($returnData['userData']->email == \Illuminate\Support\Facades\Auth::user()->email)
+                        <a href="admin/posts/create" class="button">CREATE POST</a>
+                    @endif
+                </li>
             </ul>
         </div>
         <div class="image">

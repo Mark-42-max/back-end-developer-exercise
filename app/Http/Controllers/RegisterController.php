@@ -56,7 +56,7 @@ class RegisterController extends Controller
                 return redirect('/')->with('error', 'Invalid OTP!');
             }
         }else{
-            return redirect('/')->with('error', 'Invalid OTP!');
+            return redirect('/')->with('error', 'Invalid OTP! No user found');
         }
     }
 

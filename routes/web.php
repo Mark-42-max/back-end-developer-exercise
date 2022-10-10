@@ -61,7 +61,7 @@ Route::get('admin/posts/create', [PostController::class, 'create'])->middleware(
 Route::post('admin/posts/make', [PostController::class, 'make'])->middleware('auth');
 
 //Users
-
+Route::get('admin', [UserController::class, 'showAdmin'])->middleware('admin');
 Route::get('{username:username}', [UserController::class, 'show'])->middleware('auth');
 
 
