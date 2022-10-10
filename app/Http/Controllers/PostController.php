@@ -18,7 +18,7 @@ class PostController extends Controller
         ]);
     }
 
-    public function show(Post $post) {
+    public function show($username, Post $post) {
 
         $category_id = (Category::where('name', $post->category->name)->get())[0]->getAttributes()['id'];
         return view('post', [

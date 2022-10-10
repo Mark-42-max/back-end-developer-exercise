@@ -5,6 +5,7 @@ use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionController;
+use App\Http\Controllers\UserController;
 use App\Models\Category;
 use App\Models\User;
 use App\Services\Newsletter;
@@ -27,7 +28,7 @@ use \Spatie\YamlFrontMatter\YamlFrontMatter;
 
 Route::get('/', [PostController::class, 'index'])->name('home');
 
-Route::get('/posts/{post}', [PostController::class, 'show']);
+Route::get('/{username}/{post}', [PostController::class, 'show']);
 
 Route::get('register', [RegisterController::class, 'create'])->middleware('guest');
 Route::post('register', [RegisterController::class, 'store'])->middleware('guest');
@@ -56,8 +57,12 @@ Route::get('login/facebook/callback', [SessionController::class, 'handleFacebook
 Route::post('message', [MessageController::class, 'create'])->middleware('auth');
 
 //Admin Route
-Route::get('admin/posts/create', [PostController::class, 'create'])->middleware('admin');
-Route::post('admin/posts/make', [PostController::class, 'make'])->middleware('admin');
+Route::get('admin/posts/create', [PostController::class, 'create'])->middleware('auth');
+Route::post('admin/posts/make', [PostController::class, 'make'])->middleware('auth');
+
+//Users
+
+Route::get('{username:username}', [UserController::class, 'show'])->middleware('auth');
 
 
 //->where('post', '[A-z_\-]+');
